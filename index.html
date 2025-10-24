@@ -182,10 +182,10 @@
     .source-text {
       font-style: italic;
       color: var(--text-secondary);
-      margin-top: 8px;
+      margin-top: 5px;
       font-size: 14px;
-      border-left: 3px solid var(--accent-color);
-      padding-left: 8px;
+      /* border-left: 3px solid var(--accent-color); */
+      /* padding-left: 8px; */
     }
 
     /* Background options styles */
@@ -257,86 +257,6 @@
       text-align: center;
       padding: 4px;
     }
-
-    /* NEW: Styling untuk posisi preview tetap */
-    .preview-container {
-      position: sticky;
-      top: 20px;
-      align-self: flex-start;
-    }
-
-    /* FIX: Styles untuk memastikan konsistensi ukuran pada mobile */
-    #tweetCard {
-      width: 100%;
-      max-width: 500px;
-      min-width: 300px;
-      box-sizing: border-box;
-    }
-
-    /* FIX: Pastikan elemen tetap proporsional pada berbagai ukuran layar */
-    @media (max-width: 768px) {
-      .preview-container {
-        position: static;
-        margin-top: 20px;
-      }
-      
-      #tweetCard {
-        margin: 0 auto;
-      }
-      
-      .tweet-container {
-        gap: 10px;
-      }
-      
-      .avatar-container {
-        width: 42px;
-        height: 42px;
-      }
-      
-      .user-info-container {
-        height: 42px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .tweet-container {
-        gap: 8px;
-      }
-      
-      .avatar-container {
-        width: 38px;
-        height: 38px;
-      }
-      
-      .user-info-container {
-        height: 38px;
-      }
-      
-      .tweet-display-name {
-        font-size: 15px;
-      }
-      
-      .tweet-handle {
-        font-size: 13px;
-      }
-      
-      .tweet-content {
-        font-size: 16px !important;
-      }
-    }
-
-    /* FIX: Style untuk download wrapper - konsisten di semua device */
-    .download-wrapper {
-      position: fixed;
-      left: -9999px;
-      width: 500px;
-      box-sizing: border-box;
-      background: white;
-    }
-
-    .dark .download-wrapper {
-      background: #1e293b;
-    }
   </style>
 </head>
 <body class="min-h-screen flex items-start justify-center py-10">
@@ -381,24 +301,23 @@
         <div class="relative">
           <span class="absolute left-3 top-2 text-muted">@</span>
           <input id="username" class="input-field w-full pl-7 pr-3 py-2 rounded-lg placeholder-slate-500"
-            placeholder="Masukkan username" maxlength="15">
+            placeholder="Masukkan username" maxlength="30">
         </div>
 
         <label class="block text-sm font-medium">Teks Tweet</label>
         <div class="relative">
           <textarea id="tweetText" rows="4"
             class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500" maxlength="1000" 
-            placeholder="Tulis tweet Anda di sini...">The real voyage of discovery consists not in seeking new lands, but seeing with new eyes. ❤ #proust
-
-بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
-
-"Innovation distinguishes between a leader and a follower." - Steve Jobs</textarea>
+            placeholder="Tulis tweet Anda di sini...">Rasulullah Shallallahu’alaihi Wasallam bersabda:
+خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ
+“Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia.”
+</textarea>
           <div id="charCount" class="absolute bottom-2 right-2 text-xs text-muted bg-white dark:bg-slate-700 px-1 rounded">1000/1000</div>
         </div>
 
         <label class="block text-sm font-medium">Sumber / Referensi</label>
         <input id="sourceText" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-          placeholder="Contoh: HR. Bukhari no. 1234, atau nama buku, dll" maxlength="100">
+          placeholder="Contoh: HR. Bukhari no. 1234, atau nama buku, dll" maxlength="500">
 
         <label class="block text-sm font-medium">Lokasi</label>
         <input id="location" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
@@ -474,8 +393,8 @@
       </div>
     </div>
 
-    <!-- RIGHT PREVIEW - MODIFIED WITH STICKY POSITION -->
-    <div class="preview-container">
+    <!-- RIGHT PREVIEW -->
+    <div class="flex items-start justify-center">
       <div id="tweetCard"
         class="card p-5 rounded-2xl shadow-lg w-full max-w-[500px] transition-all">
         <!-- FIX: Struktur yang lebih sederhana dan konsisten -->
@@ -876,49 +795,48 @@
       elements.loading.style.display = 'none';
     }
 
-    // FIX: Download element sebagai PNG dengan ukuran konsisten
+    // Download element sebagai PNG
     async function downloadElement(el, name, width, height) {
       try {
         showLoading();
         
-        // Buat wrapper untuk memastikan ukuran konsisten
-        const wrapper = document.createElement('div');
-        wrapper.className = 'download-wrapper';
-        wrapper.style.width = width + 'px';
-        wrapper.style.height = height ? height + 'px' : 'auto';
-        wrapper.style.padding = '20px';
-        
-        // Clone elemen asli
-        const clone = el.cloneNode(true);
-        
-        // FIX: Terapkan styling yang konsisten untuk clone
-        clone.style.width = '100%';
-        clone.style.margin = '0';
-        clone.style.padding = '0';
-        clone.style.boxSizing = 'border-box';
-        clone.style.transform = 'none';
-        
-        // Reset semua margin dan padding internal
-        const allElements = clone.querySelectorAll('*');
-        allElements.forEach(child => {
-          child.style.margin = '0';
-          child.style.padding = '0';
-          child.style.boxSizing = 'border-box';
-        });
-        
-        wrapper.appendChild(clone);
-        document.body.appendChild(wrapper);
-        
-        // Tunggu sebentar untuk memastikan rendering
-        await new Promise(resolve => setTimeout(resolve, 300));
-        
-        const canvas = await html2canvas(wrapper, {
+        const canvas = await html2canvas(el, {
           backgroundColor: null,
           scale: 2,
-          width: width,
-          height: height || wrapper.scrollHeight,
+          width,
+          height,
           useCORS: true,
-          logging: false
+          logging: false,
+          onclone: function(clonedDoc) {
+            // FIX: Force consistent styling untuk download
+            const clonedCard = clonedDoc.getElementById('tweetCard');
+            if (clonedCard) {
+              // Reset semua margin dan padding yang mungkin interfere
+              const elementsToReset = clonedCard.querySelectorAll('*');
+              elementsToReset.forEach(el => {
+                el.style.margin = '0';
+                el.style.padding = '0';
+                el.style.boxSizing = 'border-box';
+              });
+              
+              // Force specific styling untuk container
+              const container = clonedCard.querySelector('.tweet-container');
+              if (container) {
+                container.style.display = 'flex';
+                container.style.alignItems = 'flex-start';
+                container.style.gap = '12px';
+              }
+              
+              const userInfo = clonedCard.querySelector('.user-info-container');
+              if (userInfo) {
+                userInfo.style.display = 'flex';
+                userInfo.style.flexDirection = 'column';
+                userInfo.style.justifyContent = 'center';
+                userInfo.style.height = '48px';
+                userInfo.style.marginBottom = '2px';
+              }
+            }
+          }
         });
         
         const link = document.createElement('a');
@@ -926,8 +844,6 @@
         link.href = canvas.toDataURL();
         link.click();
         
-        // Bersihkan
-        document.body.removeChild(wrapper);
         hideLoading();
       } catch (error) {
         console.error('Download error:', error);
@@ -936,10 +852,9 @@
       }
     }
 
-    // Download tweet normal - FIX: Gunakan ukuran tetap
+    // Download tweet normal
     document.getElementById('downloadTweet').addEventListener('click', () => {
-      // Gunakan ukuran tetap untuk konsistensi
-      downloadElement(elements.tweetCard, 'tweet', 500, null);
+      downloadElement(elements.tweetCard, 'tweet', elements.tweetCard.offsetWidth, elements.tweetCard.offsetHeight);
     });
 
     // Download story
@@ -962,46 +877,22 @@
         if (backgroundStyle.className) {
           wrapper.className = backgroundStyle.className;
         } else {
-          wrapper.style.background = backgroundStyle.background;
+          // Apply inline style for custom background
+          Object.assign(wrapper.style, backgroundStyle);
         }
 
-        // Clone and style the tweet card
         const clone = elements.tweetCard.cloneNode(true);
-        clone.style.width = '800px';
-        clone.style.margin = '0';
-        clone.style.padding = '40px';
-        clone.style.boxSizing = 'border-box';
-        clone.style.transform = 'none';
-        
-        // Reset all internal margins and paddings
-        const allElements = clone.querySelectorAll('*');
-        allElements.forEach(child => {
-          child.style.margin = '0';
-          child.style.padding = '0';
-          child.style.boxSizing = 'border-box';
-        });
+        clone.style.transform = 'scale(1.8)';
+        clone.style.transformOrigin = 'center';
+        clone.style.borderRadius = '24px';
+        clone.style.boxShadow = '0 12px 32px rgba(0,0,0,0.25)';
 
         wrapper.appendChild(clone);
         document.body.appendChild(wrapper);
 
-        await new Promise(resolve => setTimeout(resolve, 300));
-        
-        const canvas = await html2canvas(wrapper, {
-          backgroundColor: null,
-          scale: 2,
-          width: 1080,
-          height: 1920,
-          useCORS: true,
-          logging: false
-        });
-        
-        const link = document.createElement('a');
-        link.download = 'tweet-story.png';
-        link.href = canvas.toDataURL();
-        link.click();
-        
+        await new Promise(r => setTimeout(r, 500));
+        await downloadElement(wrapper, 'tweet-story', 1080, 1920);
         document.body.removeChild(wrapper);
-        hideLoading();
       } catch (error) {
         console.error('Story download error:', error);
         alert('Terjadi kesalahan saat mengunduh story. Silakan coba lagi.');
@@ -1010,23 +901,29 @@
     });
 
     // === INITIALIZATION ===
-    document.addEventListener('DOMContentLoaded', () => {
-      // Load dark mode preference
-      if (localStorage.getItem('darkMode') === 'true') {
+    
+    // Load dark mode preference
+    function initializeDarkMode() {
+      const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+      
+      if (savedDarkMode) {
         document.documentElement.classList.add('dark');
+        document.body.classList.add('soft-dark');
+        document.body.classList.remove('soft-light');
         elements.darkIcon.textContent = '☀️';
         elements.darkText.textContent = 'Mode Terang';
-        document.body.classList.add('soft-dark');
       } else {
+        document.documentElement.classList.remove('dark');
         document.body.classList.add('soft-light');
+        document.body.classList.remove('soft-dark');
+        elements.darkIcon.textContent = '🌙';
+        elements.darkText.textContent = 'Mode Gelap';
       }
-      
-      // Load cached data
-      loadCache();
-      
-      // Update timestamp every minute
-      setInterval(updateTimestamp, 60000);
-    });
+    }
+
+    // Initialize
+    initializeDarkMode();
+    loadCache();
   </script>
 </body>
 </html>
