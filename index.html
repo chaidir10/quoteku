@@ -308,9 +308,9 @@
         <div class="relative">
           <textarea id="tweetText" rows="4"
             class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500" maxlength="1000" 
-            placeholder="Tulis tweet Anda di sini...">Rasulullah Shallallahu'alaihi Wasallam bersabda:
+            placeholder="Tulis tweet Anda di sini...">Rasulullah Shallallahu’alaihi Wasallam bersabda:
 خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ
-"Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia."
+“Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia.”
 </textarea>
           <div id="charCount" class="absolute bottom-2 right-2 text-xs text-muted bg-white dark:bg-slate-700 px-1 rounded">1000/1000</div>
         </div>
@@ -795,75 +795,46 @@
       elements.loading.style.display = 'none';
     }
 
-    // Download element sebagai PNG (versi perbaikan untuk mobile)
+    // Download element sebagai PNG
     async function downloadElement(el, name, width, height) {
       try {
         showLoading();
         
-        // FIX: Untuk mobile, gunakan dimensi tetap yang lebih besar
-        // tapi tetap pertahankan rasio aspek
-        const isMobile = window.innerWidth < 768;
-        const originalWidth = el.offsetWidth;
-        const originalHeight = el.offsetHeight;
-        
-        // FIX: Untuk mobile, gunakan skala yang lebih tinggi dan dimensi tetap
-        const scale = isMobile ? 3 : 2;
-        const canvasWidth = isMobile ? Math.min(originalWidth * scale, 1200) : width;
-        const canvasHeight = isMobile ? (originalHeight / originalWidth) * canvasWidth : height;
-        
         const canvas = await html2canvas(el, {
           backgroundColor: null,
-          scale: scale,
-          width: canvasWidth,
-          height: canvasHeight,
+          scale: 2,
+          width,
+          height,
           useCORS: true,
           logging: false,
-          onclone: function(clonedDoc, clonedElement) {
+          onclone: function(clonedDoc) {
             // FIX: Force consistent styling untuk download
-            const clonedCard = clonedElement;
-            
-            // FIX: Untuk mobile, atur ukuran tetap yang lebih besar
-            if (isMobile) {
-              clonedCard.style.width = canvasWidth + 'px';
-              clonedCard.style.height = 'auto';
-              clonedCard.style.minHeight = canvasHeight + 'px';
-            }
-            
-            // Reset semua margin dan padding yang mungkin interfere
-            const elementsToReset = clonedCard.querySelectorAll('*');
-            elementsToReset.forEach(el => {
-              el.style.margin = '0';
-              el.style.padding = '0';
-              el.style.boxSizing = 'border-box';
-            });
-            
-            // Force specific styling untuk container
-            const container = clonedCard.querySelector('.tweet-container');
-            if (container) {
-              container.style.display = 'flex';
-              container.style.alignItems = 'flex-start';
-              container.style.gap = '12px';
-              // FIX: Pastikan container tidak memotong konten di mobile
-              container.style.minHeight = 'auto';
-              container.style.overflow = 'visible';
-            }
-            
-            const userInfo = clonedCard.querySelector('.user-info-container');
-            if (userInfo) {
-              userInfo.style.display = 'flex';
-              userInfo.style.flexDirection = 'column';
-              userInfo.style.justifyContent = 'center';
-              userInfo.style.height = '48px';
-              userInfo.style.marginBottom = '2px';
-            }
-            
-            // FIX: Pastikan konten tweet tidak terpotong
-            const tweetContent = clonedCard.querySelector('.tweet-content');
-            if (tweetContent) {
-              tweetContent.style.whiteSpace = 'pre-wrap';
-              tweetContent.style.wordWrap = 'break-word';
-              tweetContent.style.overflow = 'visible';
-              tweetContent.style.maxHeight = 'none';
+            const clonedCard = clonedDoc.getElementById('tweetCard');
+            if (clonedCard) {
+              // Reset semua margin dan padding yang mungkin interfere
+              const elementsToReset = clonedCard.querySelectorAll('*');
+              elementsToReset.forEach(el => {
+                el.style.margin = '0';
+                el.style.padding = '0';
+                el.style.boxSizing = 'border-box';
+              });
+              
+              // Force specific styling untuk container
+              const container = clonedCard.querySelector('.tweet-container');
+              if (container) {
+                container.style.display = 'flex';
+                container.style.alignItems = 'flex-start';
+                container.style.gap = '12px';
+              }
+              
+              const userInfo = clonedCard.querySelector('.user-info-container');
+              if (userInfo) {
+                userInfo.style.display = 'flex';
+                userInfo.style.flexDirection = 'column';
+                userInfo.style.justifyContent = 'center';
+                userInfo.style.height = '48px';
+                userInfo.style.marginBottom = '2px';
+              }
             }
           }
         });
