@@ -40,6 +40,9 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-primary);
       color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     .soft-light {
@@ -276,10 +279,45 @@
         margin-top: 20px;
       }
     }
+
+    /* Footer Styles */
+    .footer-full {
+      width: 100%;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 2rem 0;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .footer-dark {
+      background: linear-gradient(135deg, #0a0f1c 0%, #1a2438 100%);
+    }
+
+    .footer-light {
+      background: linear-gradient(135deg, #334155 0%, #475569 100%);
+    }
+
+    /* Instagram icon styling */
+    .instagram-icon {
+     
+      border-radius: 8px;
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .instagram-icon:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 
-<body class="min-h-screen flex items-start justify-center py-10">
+<body class="min-h-screen flex flex-col">
 
   <!-- Loading Indicator -->
   <div id="loading" class="loading">
@@ -291,162 +329,205 @@
     </div>
   </div>
 
-  <div class="max-w-6xl w-full px-4 grid md:grid-cols-2 gap-8">
+  <div class="flex-grow flex items-start justify-center py-10">
+    <div class="max-w-6xl w-full px-4 grid md:grid-cols-2 gap-8">
 
-    <!-- LEFT CONTROL PANEL -->
-    <div class="space-y-5">
-      <h1 class="text-2xl font-bold">Naseeha Generator</h1>
+      <!-- LEFT CONTROL PANEL -->
+      <div class="space-y-5">
+        <h1 class="text-2xl font-bold">Naseeha Generator</h1>
 
-      <!-- Avatar -->
-      <div class="card p-4 rounded-xl shadow space-y-3">
-        <label class="block text-sm font-medium">Upload Foto</label>
-        <div class="flex items-center gap-3">
-          <img id="avatarPreview" src="https://cdn-icons-png.flaticon.com/512/4140/4140045.png"
-            class="w-16 h-16 rounded-full object-cover border border-slate-300 dark:border-slate-600" />
-          <div class="flex flex-col">
-            <input id="avatarInput" type="file" accept="image/*"
-              class="text-sm mb-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-700 dark:file:text-slate-300" />
-            <button id="removeAvatar"
-              class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-left">Hapus
-              Foto</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Text Inputs -->
-      <div class="card p-4 rounded-xl shadow space-y-3">
-        <label class="block text-sm font-medium">Nama</label>
-        <input id="name" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-          placeholder="Masukkan nama" maxlength="50">
-
-        <label class="block text-sm font-medium">Username</label>
-        <div class="relative">
-          <span class="absolute left-3 top-2 text-muted">@</span>
-          <input id="username" class="input-field w-full pl-7 pr-3 py-2 rounded-lg placeholder-slate-500"
-            placeholder="Masukkan username" maxlength="15">
-        </div>
-
-        <label class="block text-sm font-medium">Teks</label>
-        <div class="relative">
-          <textarea id="tweetText" rows="4" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-            maxlength="1000" placeholder="Tulis tweet Anda di sini...">Tulis disini dengan #hashtag
-
-بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
-
-"Dengan nama Allah yang Maha Pengasih lagi Maha Penyayang"</textarea>
-          <div id="charCount"
-            class="absolute bottom-2 right-2 text-xs text-muted bg-white dark:bg-slate-700 px-1 rounded">1000/1000</div>
-        </div>
-
-        <label class="block text-sm font-medium">Sumber / Referensi</label>
-        <input id="sourceText" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-          placeholder="Contoh: HR. Bukhari no. 1234, atau nama buku, dll" maxlength="100">
-
-        <label class="block text-sm font-medium">Lokasi</label>
-        <input id="location" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-          placeholder="Contoh: Bengkulu, Indonesia" maxlength="30">
-      </div>
-
-      <!-- Background Options untuk Story -->
-      <div class="card p-4 rounded-xl shadow space-y-3">
-        <label class="block text-sm font-medium">Background Story</label>
-        <div class="text-xs text-muted mb-3">Pilih background untuk download story</div>
-
-        <div class="grid grid-cols-5 gap-3">
-          <!-- Default backgrounds -->
-          <div class="bg-option soft-light selected" data-bg="soft-light" title="Light Mode"></div>
-          <div class="bg-option soft-dark" data-bg="soft-dark" title="Dark Mode"></div>
-          <div class="bg-option bg-gradient-blue" data-bg="gradient-blue" title="Blue Gradient"></div>
-          <div class="bg-option bg-gradient-purple" data-bg="gradient-purple" title="Purple Gradient"></div>
-          <div class="bg-option bg-gradient-green" data-bg="gradient-green" title="Green Gradient"></div>
-          <div class="bg-option bg-gradient-orange" data-bg="gradient-orange" title="Orange Gradient"></div>
-          <div class="bg-option bg-gradient-dark" data-bg="gradient-dark" title="Dark Gradient"></div>
-          <div class="bg-option bg-gradient-sunset" data-bg="gradient-sunset" title="Sunset Gradient"></div>
-          <div class="bg-option bg-gradient-ocean" data-bg="gradient-ocean" title="Ocean Gradient"></div>
-          <div class="bg-option bg-gradient-forest" data-bg="gradient-forest" title="Forest Gradient"></div>
-          <div class="bg-option bg-gradient-sunrise" data-bg="gradient-sunrise" title="Sunrise Gradient"></div>
-          <div class="bg-option bg-gradient-midnight" data-bg="gradient-midnight" title="Midnight Gradient"></div>
-
-          <!-- Custom background upload -->
-          <div class="bg-option bg-custom-upload" data-bg="custom" title="Upload Custom Background">
-            <div>
-              <span>📷</span>
-              <div class="text-xs mt-1">Custom</div>
+        <!-- Avatar -->
+        <div class="card p-4 rounded-xl shadow space-y-3">
+          <label class="block text-sm font-medium">Upload Foto</label>
+          <div class="flex items-center gap-3">
+            <img id="avatarPreview" src="https://cdn-icons-png.flaticon.com/512/4140/4140045.png"
+              class="w-16 h-16 rounded-full object-cover border border-slate-300 dark:border-slate-600" />
+            <div class="flex flex-col">
+              <input id="avatarInput" type="file" accept="image/*"
+                class="text-sm mb-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-700 dark:file:text-slate-300" />
+              <button id="removeAvatar"
+                class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-left">Hapus
+                Foto</button>
             </div>
           </div>
         </div>
 
-        <!-- Custom background upload input (hidden by default) -->
-        <div id="customBgUpload" class="hidden mt-3">
-          <label class="block text-xs font-medium mb-2">Upload Background Custom</label>
-          <input id="customBgInput" type="file" accept="image/*"
-            class="w-full text-xs file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-700 dark:file:text-slate-300">
-          <div class="text-xs text-muted mt-1">Rekomendasi: 1080x1920px (rasio 9:16)</div>
+        <!-- Text Inputs -->
+        <div class="card p-4 rounded-xl shadow space-y-3">
+          <label class="block text-sm font-medium">Nama</label>
+          <input id="name" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
+            placeholder="Masukkan nama" maxlength="50">
+
+          <label class="block text-sm font-medium">Username</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-muted">@</span>
+            <input id="username" class="input-field w-full pl-7 pr-3 py-2 rounded-lg placeholder-slate-500"
+              placeholder="Masukkan username" maxlength="15">
+          </div>
+
+          <label class="block text-sm font-medium">Teks</label>
+          <div class="relative">
+            <textarea id="tweetText" rows="4" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
+              maxlength="1000" placeholder="Tulis tweet Anda di sini...">Tulis disini dengan #hashtag
+
+بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+
+"Dengan nama Allah yang Maha Pengasih lagi Maha Penyayang"</textarea>
+            <div id="charCount"
+              class="absolute bottom-2 right-2 text-xs text-muted bg-white dark:bg-slate-700 px-1 rounded">1000/1000</div>
+          </div>
+
+          <label class="block text-sm font-medium">Sumber / Referensi</label>
+          <input id="sourceText" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
+            placeholder="Contoh: HR. Bukhari no. 1234, atau nama buku, dll" maxlength="100">
+
+          <label class="block text-sm font-medium">Lokasi</label>
+          <input id="location" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
+            placeholder="Contoh: Bengkulu, Indonesia" maxlength="30">
         </div>
 
-        <!-- Preview custom background -->
-        <div id="customBgPreview" class="hidden mt-3">
-          <label class="block text-xs font-medium mb-2">Preview Background Custom</label>
-          <div class="relative">
-            <img id="customBgPreviewImg"
-              class="w-full h-32 object-cover rounded-lg border border-slate-300 dark:border-slate-600">
-            <button id="removeCustomBg"
-              class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">
-              ×
+        <!-- Background Options untuk Story -->
+        <div class="card p-4 rounded-xl shadow space-y-3">
+          <label class="block text-sm font-medium">Background Story</label>
+          <div class="text-xs text-muted mb-3">Pilih background untuk download story</div>
+
+          <div class="grid grid-cols-5 gap-3">
+            <!-- Default backgrounds -->
+            <div class="bg-option soft-light selected" data-bg="soft-light" title="Light Mode"></div>
+            <div class="bg-option soft-dark" data-bg="soft-dark" title="Dark Mode"></div>
+            <div class="bg-option bg-gradient-blue" data-bg="gradient-blue" title="Blue Gradient"></div>
+            <div class="bg-option bg-gradient-purple" data-bg="gradient-purple" title="Purple Gradient"></div>
+            <div class="bg-option bg-gradient-green" data-bg="gradient-green" title="Green Gradient"></div>
+            <div class="bg-option bg-gradient-orange" data-bg="gradient-orange" title="Orange Gradient"></div>
+            <div class="bg-option bg-gradient-dark" data-bg="gradient-dark" title="Dark Gradient"></div>
+            <div class="bg-option bg-gradient-sunset" data-bg="gradient-sunset" title="Sunset Gradient"></div>
+            <div class="bg-option bg-gradient-ocean" data-bg="gradient-ocean" title="Ocean Gradient"></div>
+            <div class="bg-option bg-gradient-forest" data-bg="gradient-forest" title="Forest Gradient"></div>
+            <div class="bg-option bg-gradient-sunrise" data-bg="gradient-sunrise" title="Sunrise Gradient"></div>
+            <div class="bg-option bg-gradient-midnight" data-bg="gradient-midnight" title="Midnight Gradient"></div>
+
+            <!-- Custom background upload -->
+            <div class="bg-option bg-custom-upload" data-bg="custom" title="Upload Custom Background">
+              <div>
+                <span>📷</span>
+                <div class="text-xs mt-1">Custom</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom background upload input (hidden by default) -->
+          <div id="customBgUpload" class="hidden mt-3">
+            <label class="block text-xs font-medium mb-2">Upload Background Custom</label>
+            <input id="customBgInput" type="file" accept="image/*"
+              class="w-full text-xs file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-700 dark:file:text-slate-300">
+            <div class="text-xs text-muted mt-1">Rekomendasi: 1080x1920px (rasio 9:16)</div>
+          </div>
+
+          <!-- Preview custom background -->
+          <div id="customBgPreview" class="hidden mt-3">
+            <label class="block text-xs font-medium mb-2">Preview Background Custom</label>
+            <div class="relative">
+              <img id="customBgPreviewImg"
+                class="w-full h-32 object-cover rounded-lg border border-slate-300 dark:border-slate-600">
+              <button id="removeCustomBg"
+                class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="card p-4 rounded-xl shadow space-y-4">
+          <div class="flex flex-wrap gap-2">
+            <button id="downloadTweet"
+              class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-medium">Download
+              PNG</button>
+            <button id="downloadStory"
+              class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium">Download
+              Story</button>
+            <button id="darkToggle"
+              class="btn-secondary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-600 transition font-medium">
+              <span id="darkIcon">🌙</span>
+              <span id="darkText">Mode Gelap</span>
+            </button>
+            <button id="resetAll"
+              class="btn-secondary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 dark:hover:bg-red-900/20 transition font-medium text-red-600 dark:text-red-400 border-red-300 dark:border-red-700">
+              <span>Reset</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Buttons -->
-      <div class="card p-4 rounded-xl shadow space-y-4">
-        <div class="flex flex-wrap gap-2">
-          <button id="downloadTweet"
-            class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-medium">Download
-            PNG</button>
-          <button id="downloadStory"
-            class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium">Download
-            Story</button>
-          <button id="darkToggle"
-            class="btn-secondary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-600 transition font-medium">
-            <span id="darkIcon">🌙</span>
-            <span id="darkText">Mode Gelap</span>
-          </button>
-          <button id="resetAll"
-            class="btn-secondary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 dark:hover:bg-red-900/20 transition font-medium text-red-600 dark:text-red-400 border-red-300 dark:border-red-700">
-            <span>Reset</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT PREVIEW - MODIFIED WITH STICKY POSITION -->
-    <div class="preview-container">
-      <div id="tweetCard" class="card p-5 rounded-2xl shadow-lg w-full max-w-[500px] transition-all">
-        <!-- FIX: Struktur yang lebih sederhana dan konsisten -->
-        <div class="tweet-container">
-          <div class="avatar-container mt-2">
-            <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/4140/4140045.png" class="tweet-avatar">
-          </div>
-          <div class="content-container">
-            <div class="user-info-container">
-              <div id="displayName" class="tweet-display-name">Nama</div>
-              <div id="handle" class="tweet-handle">@username</div>
+      <!-- RIGHT PREVIEW - MODIFIED WITH STICKY POSITION -->
+      <div class="preview-container">
+        <div id="tweetCard" class="card p-5 rounded-2xl shadow-lg w-full max-w-[500px] transition-all">
+          <!-- FIX: Struktur yang lebih sederhana dan konsisten -->
+          <div class="tweet-container">
+            <div class="avatar-container mt-2">
+              <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/4140/4140045.png" class="tweet-avatar">
             </div>
-            <div id="tweetContent" class="tweet-content text-lg leading-6 mr-5">
-              Teks contoh disini 🌙 <span class="text-blue-600 dark:text-blue-400">#hashtag</span>
+            <div class="content-container">
+              <div class="user-info-container">
+                <div id="displayName" class="tweet-display-name">Nama</div>
+                <div id="handle" class="tweet-handle">@username</div>
+              </div>
+              <div id="tweetContent" class="tweet-content text-lg leading-6 mr-5">
+                Teks contoh disini 🌙 <span class="text-blue-600 dark:text-blue-400">#hashtag</span>
+              </div>
+
+              <!-- Source Text Display -->
+              <div id="sourceDisplay" class="source-text"></div>
+
+              <div id="metaLine" class="meta-line text-sm text-muted mb-3"></div>
             </div>
-
-            <!-- Source Text Display -->
-            <div id="sourceDisplay" class="source-text"></div>
-
-            <div id="metaLine" class="meta-line text-sm text-muted mb-3"></div>
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
+
+  <!-- FOOTER FULL WIDTH -->
+  <footer class="footer-full">
+    <div class="footer-content">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Logo dan Kredit -->
+        <div class="mb-4 md:mb-0">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-sm">N</span>
+            </div>
+            <span class="font-semibold text-lg">Naseeha Generator</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2">Dibuat dengan ❤️ oleh <span class="font-medium">abdr.rhmn</span></p>
+        </div>
+        
+        <!-- Instagram Link Only -->
+        <div class="flex space-x-4">
+          <a href="https://www.instagram.com/abdurrahman.solih/" target="_blank" class="text-slate-300 hover:text-white transition-colors duration-300">
+            <div class="instagram-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Garis pemisah -->
+      <div class="border-t border-slate-700 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-slate-400 text-sm text-center md:text-left mb-4 md:mb-0">
+          © 2025 Naseeha Generator. Semua hak dilindungi.
+        </p>
+        <div class="flex space-x-4 text-sm">
+          <a href="#" class="text-slate-400 hover:text-white transition-colors duration-300">Kebijakan Privasi</a>
+          <a href="#" class="text-slate-400 hover:text-white transition-colors duration-300">Syarat & Ketentuan</a>
+          <a href="#" class="text-slate-400 hover:text-white transition-colors duration-300">Kontak</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <!-- SCRIPT -->
   <script>
@@ -1025,5 +1106,4 @@
     loadCache();
   </script>
 </body>
-
 </html>
