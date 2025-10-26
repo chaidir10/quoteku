@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tweet Quote Generator</title>
+  <title>Naseeha Generator</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -295,7 +295,7 @@
 
     <!-- LEFT CONTROL PANEL -->
     <div class="space-y-5">
-      <h1 class="text-2xl font-bold">Tweet Generator</h1>
+      <h1 class="text-2xl font-bold">Naseeha Generator</h1>
 
       <!-- Avatar -->
       <div class="card p-4 rounded-xl shadow space-y-3">
@@ -326,10 +326,10 @@
             placeholder="Masukkan username" maxlength="15">
         </div>
 
-        <label class="block text-sm font-medium">Teks Tweet</label>
+        <label class="block text-sm font-medium">Teks</label>
         <div class="relative">
           <textarea id="tweetText" rows="4" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-            maxlength="1000" placeholder="Tulis tweet Anda di sini...">Tulis disini dengan #hasgtag
+            maxlength="1000" placeholder="Tulis tweet Anda di sini...">Tulis disini dengan #hashtag
 
 بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
 
@@ -831,18 +831,17 @@
           useCORS: true,
           logging: false,
           onclone: function (clonedDoc) {
-            // FIX: Force consistent styling untuk download
+            // ✅ Konsistensi tampilan card seperti mode story
             const clonedCard = clonedDoc.getElementById('tweetCard');
             if (clonedCard) {
-              // Reset semua margin dan padding yang mungkin interfere
-              const elementsToReset = clonedCard.querySelectorAll('*');
-              elementsToReset.forEach(el => {
+              // Reset semua margin/padding agar layout rapi
+              clonedCard.querySelectorAll('*').forEach(el => {
                 el.style.margin = '0';
                 el.style.padding = '0';
                 el.style.boxSizing = 'border-box';
               });
 
-              // Force specific styling untuk container
+              // Struktur utama
               const container = clonedCard.querySelector('.tweet-container');
               if (container) {
                 container.style.display = 'flex';
@@ -857,6 +856,29 @@
                 userInfo.style.justifyContent = 'center';
                 userInfo.style.height = '48px';
                 userInfo.style.marginBottom = '2px';
+              }
+
+              // ✅ Penyesuaian posisi border (bar) agar sejajar tengah teks
+              const bars = clonedCard.querySelectorAll('.border-bar');
+              bars.forEach(bar => {
+                const top = parseFloat(bar.style.top) || 0;
+                // turunkan sedikit biar sejajar tengah teks
+                bar.style.top = (top + 4) + 'px';
+              });
+
+              // ✅ Pastikan teks tidak bergeser dan rapi
+              const sourceText = clonedCard.querySelector('.source-text');
+              if (sourceText) {
+                sourceText.style.display = 'inline-flex';
+                sourceText.style.alignItems = 'center';
+                sourceText.style.paddingLeft = '10px';
+                sourceText.style.borderLeft = '3px solid rgb(42,154,245)';
+                sourceText.style.lineHeight = '1.6';
+                sourceText.style.fontStyle = 'italic';
+                sourceText.style.fontSize = '14px';
+                sourceText.style.color = '#94a3b8';
+                sourceText.style.marginTop = '12px';
+                sourceText.style.boxSizing = 'border-box';
               }
             }
           }
@@ -966,7 +988,7 @@
 
         // tunggu sejenak agar DOM final tertata sebelum di-screenshot
         await new Promise(r => setTimeout(r, 150));
-        await downloadElement(wrapper, 'tweet-story', 1080, 1920);
+        await downloadElement(wrapper, 'naseeha-story', 1080, 1920);
 
         // cleanup
         document.body.removeChild(wrapper);
