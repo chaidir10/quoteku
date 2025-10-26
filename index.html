@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="id" class="transition-colors duration-500">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,11 +8,13 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  
+
   <!-- Google Fonts untuk Arab dan Latin -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
@@ -20,7 +23,7 @@
       --text-primary: #1e293b;
       --text-secondary: #475569;
       --border-color: #e2e8f0;
-      --accent-color: #cecece;
+      --accent-color: rgb(42, 154, 245);
     }
 
     .dark {
@@ -29,7 +32,7 @@
       --text-primary: #f1f5f9;
       --text-secondary: #cbd5e1;
       --border-color: #334155;
-      --accent-color: #7c7c7c;
+      --accent-color: #1a76ee;
     }
 
     body {
@@ -42,10 +45,11 @@
     .soft-light {
       background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
     }
+
     .soft-dark {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
     }
-    
+
     .loading {
       display: none;
       position: fixed;
@@ -60,24 +64,24 @@
       color: white;
       font-size: 1.5rem;
     }
-    
+
     /* Font khusus untuk teks Arab */
     .arabic-text {
       font-family: 'Noto Naskh Arabic', serif;
       line-height: 1.8;
     }
-    
+
     /* Gaya untuk teks yang mengandung Arab dan Latin */
     .mixed-text {
       line-height: 1.6;
     }
-    
+
     /* Deteksi dan styling untuk teks Arab */
     .tweet-content {
       white-space: pre-wrap;
       word-wrap: break-word;
     }
-    
+
     /* Direction RTL untuk teks Arab */
     .rtl-text {
       direction: rtl;
@@ -147,7 +151,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 48px; /* Match avatar height exactly */
+      height: 48px;
+      /* Match avatar height exactly */
       margin-bottom: 2px;
     }
 
@@ -182,10 +187,10 @@
     .source-text {
       font-style: italic;
       color: var(--text-secondary);
-      margin-top: 5px;
+      margin-top: 8px;
       font-size: 14px;
-      /* border-left: 3px solid var(--accent-color); */
-      /* padding-left: 8px; */
+      border-left: 2px solid var(--accent-color);
+      padding-left: 8px;
     }
 
     /* Background options styles */
@@ -257,8 +262,23 @@
       text-align: center;
       padding: 4px;
     }
+
+    /* NEW: Styling untuk posisi preview tetap */
+    .preview-container {
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+    }
+
+    @media (max-width: 768px) {
+      .preview-container {
+        position: static;
+        margin-top: 20px;
+      }
+    }
   </style>
 </head>
+
 <body class="min-h-screen flex items-start justify-center py-10">
 
   <!-- Loading Indicator -->
@@ -286,7 +306,9 @@
           <div class="flex flex-col">
             <input id="avatarInput" type="file" accept="image/*"
               class="text-sm mb-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-700 dark:file:text-slate-300" />
-            <button id="removeAvatar" class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-left">Hapus Foto</button>
+            <button id="removeAvatar"
+              class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-left">Hapus
+              Foto</button>
           </div>
         </div>
       </div>
@@ -301,23 +323,24 @@
         <div class="relative">
           <span class="absolute left-3 top-2 text-muted">@</span>
           <input id="username" class="input-field w-full pl-7 pr-3 py-2 rounded-lg placeholder-slate-500"
-            placeholder="Masukkan username" maxlength="30">
+            placeholder="Masukkan username" maxlength="15">
         </div>
 
         <label class="block text-sm font-medium">Teks Tweet</label>
         <div class="relative">
-          <textarea id="tweetText" rows="4"
-            class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500" maxlength="1000" 
-            placeholder="Tulis tweet Anda di sini...">Rasulullah Shallallahu’alaihi Wasallam bersabda:
-خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ
-“Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia.”
-</textarea>
-          <div id="charCount" class="absolute bottom-2 right-2 text-xs text-muted bg-white dark:bg-slate-700 px-1 rounded">1000/1000</div>
+          <textarea id="tweetText" rows="4" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
+            maxlength="1000" placeholder="Tulis tweet Anda di sini...">Tulis disini dengan #hasgtag
+
+بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+
+"Dengan nama Allah yang Maha Pengasih lagi Maha Penyayang"</textarea>
+          <div id="charCount"
+            class="absolute bottom-2 right-2 text-xs text-muted bg-white dark:bg-slate-700 px-1 rounded">1000/1000</div>
         </div>
 
         <label class="block text-sm font-medium">Sumber / Referensi</label>
         <input id="sourceText" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
-          placeholder="Contoh: HR. Bukhari no. 1234, atau nama buku, dll" maxlength="500">
+          placeholder="Contoh: HR. Bukhari no. 1234, atau nama buku, dll" maxlength="100">
 
         <label class="block text-sm font-medium">Lokasi</label>
         <input id="location" class="input-field w-full px-3 py-2 rounded-lg placeholder-slate-500"
@@ -328,7 +351,7 @@
       <div class="card p-4 rounded-xl shadow space-y-3">
         <label class="block text-sm font-medium">Background Story</label>
         <div class="text-xs text-muted mb-3">Pilih background untuk download story</div>
-        
+
         <div class="grid grid-cols-5 gap-3">
           <!-- Default backgrounds -->
           <div class="bg-option soft-light selected" data-bg="soft-light" title="Light Mode"></div>
@@ -343,7 +366,7 @@
           <div class="bg-option bg-gradient-forest" data-bg="gradient-forest" title="Forest Gradient"></div>
           <div class="bg-option bg-gradient-sunrise" data-bg="gradient-sunrise" title="Sunrise Gradient"></div>
           <div class="bg-option bg-gradient-midnight" data-bg="gradient-midnight" title="Midnight Gradient"></div>
-          
+
           <!-- Custom background upload -->
           <div class="bg-option bg-custom-upload" data-bg="custom" title="Upload Custom Background">
             <div>
@@ -356,7 +379,7 @@
         <!-- Custom background upload input (hidden by default) -->
         <div id="customBgUpload" class="hidden mt-3">
           <label class="block text-xs font-medium mb-2">Upload Background Custom</label>
-          <input id="customBgInput" type="file" accept="image/*" 
+          <input id="customBgInput" type="file" accept="image/*"
             class="w-full text-xs file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-slate-700 dark:file:text-slate-300">
           <div class="text-xs text-muted mt-1">Rekomendasi: 1080x1920px (rasio 9:16)</div>
         </div>
@@ -365,8 +388,10 @@
         <div id="customBgPreview" class="hidden mt-3">
           <label class="block text-xs font-medium mb-2">Preview Background Custom</label>
           <div class="relative">
-            <img id="customBgPreviewImg" class="w-full h-32 object-cover rounded-lg border border-slate-300 dark:border-slate-600">
-            <button id="removeCustomBg" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">
+            <img id="customBgPreviewImg"
+              class="w-full h-32 object-cover rounded-lg border border-slate-300 dark:border-slate-600">
+            <button id="removeCustomBg"
+              class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">
               ×
             </button>
           </div>
@@ -377,9 +402,11 @@
       <div class="card p-4 rounded-xl shadow space-y-4">
         <div class="flex flex-wrap gap-2">
           <button id="downloadTweet"
-            class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-medium text-muted">Download PNG</button>
+            class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-medium">Download
+            PNG</button>
           <button id="downloadStory"
-            class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium">Download Story</button>
+            class="btn-primary px-4 py-2 rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium">Download
+            Story</button>
           <button id="darkToggle"
             class="btn-secondary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-600 transition font-medium">
             <span id="darkIcon">🌙</span>
@@ -393,30 +420,26 @@
       </div>
     </div>
 
-    <!-- RIGHT PREVIEW -->
-    <div class="flex items-start justify-center">
-      <div id="tweetCard"
-        class="card p-5 rounded-2xl shadow-lg w-full max-w-[500px] transition-all">
+    <!-- RIGHT PREVIEW - MODIFIED WITH STICKY POSITION -->
+    <div class="preview-container">
+      <div id="tweetCard" class="card p-5 rounded-2xl shadow-lg w-full max-w-[500px] transition-all">
         <!-- FIX: Struktur yang lebih sederhana dan konsisten -->
         <div class="tweet-container">
           <div class="avatar-container mt-2">
-            <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/4140/4140045.png"
-              class="tweet-avatar">
+            <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/4140/4140045.png" class="tweet-avatar">
           </div>
           <div class="content-container">
             <div class="user-info-container">
               <div id="displayName" class="tweet-display-name">Nama</div>
               <div id="handle" class="tweet-handle">@username</div>
             </div>
-            <div id="tweetContent"
-              class="tweet-content text-lg leading-6 mr-5">
-              Teks contoh disini 🌙 <span
-                class="text-blue-600 dark:text-blue-400">#hashtag</span>
+            <div id="tweetContent" class="tweet-content text-lg leading-6 mr-5">
+              Teks contoh disini 🌙 <span class="text-blue-600 dark:text-blue-400">#hashtag</span>
             </div>
-            
+
             <!-- Source Text Display -->
             <div id="sourceDisplay" class="source-text"></div>
-            
+
             <div id="metaLine" class="meta-line text-sm text-muted mb-3"></div>
           </div>
         </div>
@@ -429,9 +452,9 @@
   <script>
     // === KONSTANTA ===
     const bulanSingkat = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
-                          "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+      "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     const DEFAULT_AVATAR = "https://cdn-icons-png.flaticon.com/512/4140/4140045.png";
-    
+
     // Regex untuk mendeteksi karakter Arab
     const arabicRegex = /[\u0600-\u06FF]/;
 
@@ -470,7 +493,7 @@
     let customBackgroundUrl = null;
 
     // === UTILITY FUNCTIONS ===
-    
+
     // Format tanggal: Jumat, 24 Okt 2025
     function formatTanggal(now) {
       const tgl = now.getDate();
@@ -491,7 +514,7 @@
     function updateCharCount() {
       const currentLength = elements.tweetTextInput.value.length;
       elements.charCount.textContent = `${currentLength}/1000`;
-      
+
       // Change color if approaching limit
       if (currentLength > 950) {
         elements.charCount.classList.add('text-red-600');
@@ -507,13 +530,13 @@
       // Pisahkan teks menjadi baris-baris
       const lines = text.split('\n');
       let processedHTML = '';
-      
+
       // Filter baris kosong di akhir
       let lastNonEmptyIndex = lines.length - 1;
       while (lastNonEmptyIndex >= 0 && lines[lastNonEmptyIndex].trim() === '') {
         lastNonEmptyIndex--;
       }
-      
+
       lines.forEach((line, index) => {
         if (line.trim() === '') {
           // Baris kosong - hanya tambahkan jika bukan di akhir dan ada konten setelahnya
@@ -523,17 +546,17 @@
         } else {
           // Periksa apakah baris mengandung teks Arab
           const hasArabic = arabicRegex.test(line);
-          
+
           // Proses hashtags dan styling
           let processedLine = line.replace(/#(\w+)/g, '<span class="text-blue-600 dark:text-blue-400 font-medium">#$1</span>');
-          
+
           // Terapkan kelas yang sesuai
           const textClass = hasArabic ? 'arabic-text rtl-text' : 'mixed-text';
-          
+
           processedHTML += `<div class="${textClass}">${processedLine}</div>`;
         }
       });
-      
+
       return processedHTML;
     }
 
@@ -552,13 +575,13 @@
     function updatePreview() {
       elements.displayName.textContent = elements.nameInput.value || "Nama";
       elements.handle.textContent = '@' + (elements.usernameInput.value || "username");
-      
+
       // Proses teks tweet dengan dukungan multi-line dan Arab
       elements.tweetContent.innerHTML = processTweetText(elements.tweetTextInput.value);
-      
+
       // Update source text
       updateSourceDisplay();
-      
+
       updateTimestamp();
       updateCharCount();
       saveCache();
@@ -611,14 +634,14 @@
         elements.avatar.src = DEFAULT_AVATAR;
         elements.avatarPreview.src = DEFAULT_AVATAR;
         elements.avatarInput.value = '';
-        
+
         // Reset background
         selectBackground('soft-light');
         customBackgroundUrl = null;
         elements.customBgInput.value = '';
         elements.customBgUpload.classList.add('hidden');
         elements.customBgPreview.classList.add('hidden');
-        
+
         updatePreview();
         saveCache();
       }
@@ -628,11 +651,11 @@
     function toggleDarkMode() {
       const isDark = document.documentElement.classList.toggle('dark');
       localStorage.setItem('darkMode', isDark);
-      
+
       // Update button text
       elements.darkIcon.textContent = isDark ? '☀️' : '🌙';
       elements.darkText.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
-      
+
       // Update background class
       if (isDark) {
         document.body.classList.remove('soft-light');
@@ -641,7 +664,7 @@
         document.body.classList.remove('soft-dark');
         document.body.classList.add('soft-light');
       }
-      
+
       updatePreview();
     }
 
@@ -651,40 +674,40 @@
       document.querySelectorAll('.bg-option').forEach(option => {
         option.classList.remove('selected');
       });
-      
+
       // Add selected class to chosen option
       const selectedOption = document.querySelector(`[data-bg="${bgType}"]`);
       if (selectedOption) {
         selectedOption.classList.add('selected');
       }
-      
+
       selectedBackground = bgType;
-      
+
       // Show/hide custom upload section
       if (bgType === 'custom') {
         elements.customBgUpload.classList.remove('hidden');
       } else {
         elements.customBgUpload.classList.add('hidden');
       }
-      
+
       saveCache();
     }
 
     function handleCustomBackgroundUpload(file) {
       if (!file) return;
-      
+
       // Validasi tipe file
       if (!file.type.match('image.*')) {
         alert('Hanya file gambar yang diizinkan');
         return;
       }
-      
+
       // Validasi ukuran file (maks 10MB)
       if (file.size > 10 * 1024 * 1024) {
         alert('Ukuran file maksimal 10MB');
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onload = ev => {
         customBackgroundUrl = ev.target.result;
@@ -712,15 +735,15 @@
       } else {
         // Return class name for predefined backgrounds
         return {
-          className: selectedBackground === 'soft-light' ? 'soft-light' : 
-                    selectedBackground === 'soft-dark' ? 'soft-dark' :
-                    `bg-${selectedBackground}`
+          className: selectedBackground === 'soft-light' ? 'soft-light' :
+            selectedBackground === 'soft-dark' ? 'soft-dark' :
+              `bg-${selectedBackground}`
         };
       }
     }
 
     // === EVENT HANDLERS ===
-    
+
     // Input listeners
     [elements.nameInput, elements.usernameInput, elements.tweetTextInput, elements.sourceTextInput, elements.locationInput].forEach(el =>
       el.addEventListener('input', updatePreview)
@@ -730,19 +753,19 @@
     elements.avatarInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
-      
+
       // Validasi tipe file
       if (!file.type.match('image.*')) {
         alert('Hanya file gambar yang diizinkan');
         return;
       }
-      
+
       // Validasi ukuran file (maks 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert('Ukuran file maksimal 5MB');
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onload = ev => {
         elements.avatar.src = ev.target.result;
@@ -784,12 +807,12 @@
     elements.removeCustomBg.addEventListener('click', removeCustomBackground);
 
     // === DOWNLOAD FUNCTIONS ===
-    
+
     // Tampilkan loading
     function showLoading() {
       elements.loading.style.display = 'flex';
     }
-    
+
     // Sembunyikan loading
     function hideLoading() {
       elements.loading.style.display = 'none';
@@ -799,7 +822,7 @@
     async function downloadElement(el, name, width, height) {
       try {
         showLoading();
-        
+
         const canvas = await html2canvas(el, {
           backgroundColor: null,
           scale: 2,
@@ -807,7 +830,7 @@
           height,
           useCORS: true,
           logging: false,
-          onclone: function(clonedDoc) {
+          onclone: function (clonedDoc) {
             // FIX: Force consistent styling untuk download
             const clonedCard = clonedDoc.getElementById('tweetCard');
             if (clonedCard) {
@@ -818,7 +841,7 @@
                 el.style.padding = '0';
                 el.style.boxSizing = 'border-box';
               });
-              
+
               // Force specific styling untuk container
               const container = clonedCard.querySelector('.tweet-container');
               if (container) {
@@ -826,7 +849,7 @@
                 container.style.alignItems = 'flex-start';
                 container.style.gap = '12px';
               }
-              
+
               const userInfo = clonedCard.querySelector('.user-info-container');
               if (userInfo) {
                 userInfo.style.display = 'flex';
@@ -838,12 +861,12 @@
             }
           }
         });
-        
+
         const link = document.createElement('a');
         link.download = name + '.png';
         link.href = canvas.toDataURL();
         link.click();
-        
+
         hideLoading();
       } catch (error) {
         console.error('Download error:', error);
@@ -861,7 +884,7 @@
     document.getElementById('downloadStory').addEventListener('click', async () => {
       try {
         showLoading();
-        
+
         const wrapper = document.createElement('div');
         wrapper.style.width = '1080px';
         wrapper.style.height = '1920px';
@@ -877,21 +900,75 @@
         if (backgroundStyle.className) {
           wrapper.className = backgroundStyle.className;
         } else {
-          // Apply inline style for custom background
           Object.assign(wrapper.style, backgroundStyle);
         }
 
         const clone = elements.tweetCard.cloneNode(true);
+
+        // Pastikan container relatif supaya bar bisa diposisikan absolut di dalamnya
+        const contentContainer = clone.querySelector('.content-container');
+        if (contentContainer) contentContainer.style.position = 'relative';
+
         clone.style.transform = 'scale(1.8)';
         clone.style.transformOrigin = 'center';
         clone.style.borderRadius = '24px';
         clone.style.boxShadow = '0 12px 32px rgba(0,0,0,0.25)';
 
+        // Hapus border-left lama supaya tidak menggandakan garis
+        const sourceText = clone.querySelector('.source-text');
+        if (sourceText) {
+          sourceText.style.borderLeft = 'none';
+          sourceText.style.paddingLeft = '12px';
+          sourceText.style.fontStyle = 'italic';
+          sourceText.style.fontSize = '14px';
+          sourceText.style.lineHeight = '1.6';
+          sourceText.style.color = '#94a3b8';
+          sourceText.style.display = 'block';
+          sourceText.style.boxSizing = 'border-box';
+          sourceText.style.marginTop = '12px';
+        }
+
         wrapper.appendChild(clone);
         document.body.appendChild(wrapper);
 
-        await new Promise(r => setTimeout(r, 500));
+        // beri waktu browser layout setelah append (important)
+        await new Promise(r => setTimeout(r, 80));
+
+        // sekarang hitung posisi dan tinggi sourceText di dalam contentContainer
+        if (contentContainer && sourceText) {
+          // offsetTop/offsetHeight bekerja dengan transform tetap (transform akan diskalakan juga)
+          const top = sourceText.offsetTop;
+          const height = sourceText.offsetHeight;
+
+          // hitung posisi kiri bar: sedikit di kiri teks (sesuaikan -10 jika perlu)
+          const left = Math.max((sourceText.offsetLeft || 0) - 10, 0);
+
+          // buat elemen bar yang akan menggantikan border-left
+          const bar = document.createElement('div');
+          bar.style.position = 'absolute';
+          bar.style.left = left + 'px';
+          bar.style.top = (top + 8) + 'px';
+          bar.style.width = '3px';
+          bar.style.height = height + 'px';
+          bar.style.backgroundColor = 'rgb(42,154,245)';
+          bar.style.borderRadius = '2px';
+          bar.style.boxSizing = 'border-box';
+          // berikan z-index agar tampak di depan latar tapi di belakang teks (jika perlu)
+          bar.style.zIndex = '1';
+
+          // tempatkan bar ke dalam contentContainer (relative)
+          contentContainer.appendChild(bar);
+
+          // Pastikan teks muncul di atas bar
+          sourceText.style.position = 'relative';
+          sourceText.style.zIndex = '2';
+        }
+
+        // tunggu sejenak agar DOM final tertata sebelum di-screenshot
+        await new Promise(r => setTimeout(r, 150));
         await downloadElement(wrapper, 'tweet-story', 1080, 1920);
+
+        // cleanup
         document.body.removeChild(wrapper);
       } catch (error) {
         console.error('Story download error:', error);
@@ -901,11 +978,11 @@
     });
 
     // === INITIALIZATION ===
-    
+
     // Load dark mode preference
     function initializeDarkMode() {
       const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-      
+
       if (savedDarkMode) {
         document.documentElement.classList.add('dark');
         document.body.classList.add('soft-dark');
@@ -926,4 +1003,5 @@
     loadCache();
   </script>
 </body>
+
 </html>
